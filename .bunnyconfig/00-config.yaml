@@ -26,15 +26,20 @@ exec_once:
    command: |
      rm -f /etc/apache2/sites-enabled/000-default.conf
 
+pre_app_deploy:
+ execs:
+  Run composer install:
+   name: Run composer install
+   command: |
+     #!/usr/bin/env bash
+     export COMPOSER_HOME=/usr/local/bin/.composer
+     /usr/local/bin/composer install
+
 post_app_deploy:
  execs:
   Restart apache:
    name: Restart apache
    command: |
      #!/usr/bin/env bash
-
-     export COMPOSER_HOME=/usr/local/bin/.composer
-     /usr/local/bin/composer install
-
      chown -RL www-data:www-data /var/www/html/drupal
      service apache2 restart
