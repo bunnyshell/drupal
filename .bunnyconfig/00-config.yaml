@@ -4,6 +4,7 @@ pre_app_deploy:
    name: Run composer install
    command: |
      #!/usr/bin/env bash
+
      export COMPOSER_HOME=/usr/local/bin/.composer
      /usr/local/bin/composer install
 
